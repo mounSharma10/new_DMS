@@ -191,50 +191,50 @@ export function AdvancedSearch() {
                 </div>
               </div>
 
-              {/* Main filter card */}
-              <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden">
-                <div className="px-5 py-4 border-b border-slate-100 dark:border-slate-700">
-                  <h3 className="text-slate-900 dark:text-white" style={{ fontWeight: 600, fontSize: '15px' }}>Advanced Search</h3>
-                </div>
-
-                <div className="p-5 space-y-4">
-                  {/* Document Class row */}
-                  <div className="flex items-center gap-4">
-                    <label className="text-sm text-slate-600 dark:text-slate-400 w-32 shrink-0" style={{ fontWeight: 500 }}>
-                      Document Class
-                    </label>
-                    <div className="relative flex-1">
-                      <select
-                        value={docClass}
-                        onChange={e => setDocClass(e.target.value)}
-                        className="w-full h-9 px-3 pr-8 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-200 text-sm outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-50 dark:focus:ring-indigo-900/30 transition-all appearance-none cursor-pointer"
-                        style={{ fontWeight: 400 }}
-                      >
-                        <option value="">Select Class</option>
-                        {documentClasses.map(cls => (
-                          <option key={cls} value={cls}>{cls}</option>
-                        ))}
-                      </select>
-                      <ChevronDown className="absolute right-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400 pointer-events-none" />
-                    </div>
+              <div className="grid grid-cols-1 xl:grid-cols-2 gap-5 items-start">
+                {/* Main filter card */}
+                <div className="min-w-0 bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden">
+                  <div className="px-5 py-4 border-b border-slate-100 dark:border-slate-700">
+                    <h3 className="text-slate-900 dark:text-white" style={{ fontWeight: 600, fontSize: '15px' }}>Advanced Search</h3>
                   </div>
 
-                  {/* Filter rows */}
-                  <div className="space-y-2.5">
-                    {filters.map((filter, idx) => (
-                      <motion.div
-                        key={filter.id}
-                        initial={{ opacity: 0, x: -8 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        className="flex items-center gap-2"
-                      >
-                        {/* Field label for first row */}
-                        {idx === 0 ? (
-                          <label className="text-sm text-slate-600 dark:text-slate-400 w-32 shrink-0" style={{ fontWeight: 500 }}>
-                            {filter.field}
-                          </label>
-                        ) : (
-                          <div className="w-32 shrink-0">
+                  <div className="p-5 space-y-4">
+                    {/* Document Class row */}
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+                      <label className="text-sm text-slate-600 dark:text-slate-400 sm:w-32 shrink-0" style={{ fontWeight: 500 }}>
+                        Document Class
+                      </label>
+                      <div className="relative flex-1 min-w-0">
+                        <select
+                          value={docClass}
+                          onChange={e => setDocClass(e.target.value)}
+                          className="w-full h-9 px-3 pr-8 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-200 text-sm outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-50 dark:focus:ring-indigo-900/30 transition-all appearance-none cursor-pointer"
+                          style={{ fontWeight: 400 }}
+                        >
+                          <option value="">Select Class</option>
+                          {documentClasses.map(cls => (
+                            <option key={cls} value={cls}>{cls}</option>
+                          ))}
+                        </select>
+                        <ChevronDown className="absolute right-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400 pointer-events-none" />
+                      </div>
+                    </div>
+
+                    {/* Filter rows */}
+                    <div className="space-y-2.5">
+                      {filters.map((filter, idx) => (
+                        <motion.div
+                          key={filter.id}
+                          initial={{ opacity: 0, x: -8 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          className="grid grid-cols-1 sm:grid-cols-[8rem_minmax(8rem,9rem)_minmax(0,1fr)_auto] items-center gap-2"
+                        >
+                          {/* Field label for first row */}
+                          {idx === 0 ? (
+                            <label className="text-sm text-slate-600 dark:text-slate-400" style={{ fontWeight: 500 }}>
+                              {filter.field}
+                            </label>
+                          ) : (
                             <div className="relative">
                               <select
                                 value={filter.conjunction}
@@ -247,177 +247,181 @@ export function AdvancedSearch() {
                               </select>
                               <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-3 h-3 text-slate-400 pointer-events-none" />
                             </div>
-                          </div>
-                        )}
+                          )}
 
-                        {/* Operator */}
-                        <div className="relative w-36 shrink-0">
-                          <select
-                            value={filter.operator}
-                            onChange={e => updateFilter(filter.id, 'operator', e.target.value)}
-                            className="w-full h-9 px-3 pr-7 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-200 text-sm outline-none focus:border-indigo-400 transition-all appearance-none cursor-pointer"
-                            style={{ fontWeight: 400 }}
-                          >
-                            {operators.map(op => <option key={op}>{op}</option>)}
-                          </select>
-                          <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-3 h-3 text-slate-400 pointer-events-none" />
-                        </div>
-
-                        {/* Value input */}
-                        <input
-                          type="text"
-                          value={filter.value}
-                          onChange={e => updateFilter(filter.id, 'value', e.target.value)}
-                          placeholder="Enter search value..."
-                          className="flex-1 h-9 px-3 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-200 text-sm outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-50 dark:focus:ring-indigo-900/30 transition-all placeholder-slate-400 dark:placeholder-slate-500"
-                        />
-
-                        {/* AND/OR connector display for first row */}
-                        {idx === 0 && filters.length > 1 && (
-                          <div className="relative w-20 shrink-0">
+                          {/* Operator */}
+                          <div className="relative min-w-0">
                             <select
-                              value={filters[1]?.conjunction || 'AND'}
-                              onChange={e => updateFilter(filters[1]?.id || '', 'conjunction', e.target.value)}
-                              className="w-full h-9 px-2 pr-6 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-200 text-sm outline-none appearance-none cursor-pointer"
+                              value={filter.operator}
+                              onChange={e => updateFilter(filter.id, 'operator', e.target.value)}
+                              className="w-full h-9 px-3 pr-7 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-200 text-sm outline-none focus:border-indigo-400 transition-all appearance-none cursor-pointer"
+                              style={{ fontWeight: 400 }}
+                            >
+                              {operators.map(op => <option key={op}>{op}</option>)}
+                            </select>
+                            <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-3 h-3 text-slate-400 pointer-events-none" />
+                          </div>
+
+                          {/* Value input */}
+                          <input
+                            type="text"
+                            value={filter.value}
+                            onChange={e => updateFilter(filter.id, 'value', e.target.value)}
+                            placeholder="Enter search value..."
+                            className="min-w-0 h-9 px-3 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-200 text-sm outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-50 dark:focus:ring-indigo-900/30 transition-all placeholder-slate-400 dark:placeholder-slate-500"
+                          />
+
+                          <div className="flex flex-wrap sm:flex-nowrap items-center gap-2">
+                            {/* AND/OR connector display for first row */}
+                            {idx === 0 && filters.length > 1 && (
+                              <div className="relative w-20 shrink-0">
+                                <select
+                                  value={filters[1]?.conjunction || 'AND'}
+                                  onChange={e => updateFilter(filters[1]?.id || '', 'conjunction', e.target.value)}
+                                  className="w-full h-9 px-2 pr-6 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-200 text-sm outline-none appearance-none cursor-pointer"
+                                  style={{ fontWeight: 500 }}
+                                >
+                                  <option>AND</option>
+                                  <option>OR</option>
+                                </select>
+                                <ChevronDown className="absolute right-1.5 top-1/2 -translate-y-1/2 w-3 h-3 text-slate-400 pointer-events-none" />
+                              </div>
+                            )}
+
+                            {/* Actions */}
+                            <button
+                              onClick={addFilter}
+                              className="shrink-0 h-9 px-3 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-sm flex items-center gap-1 transition-colors shadow-sm"
                               style={{ fontWeight: 500 }}
                             >
-                              <option>AND</option>
-                              <option>OR</option>
-                            </select>
-                            <ChevronDown className="absolute right-1.5 top-1/2 -translate-y-1/2 w-3 h-3 text-slate-400 pointer-events-none" />
+                              <Plus className="w-3 h-3" />
+                              Add
+                            </button>
+                            {filters.length > 1 && (
+                              <button
+                                onClick={() => removeFilter(filter.id)}
+                                className="shrink-0 h-9 px-3 rounded-lg border border-slate-200 dark:border-slate-600 text-slate-500 dark:text-slate-400 text-sm hover:bg-red-50 dark:hover:bg-red-900/10 hover:text-red-500 hover:border-red-200 dark:hover:border-red-800 transition-colors"
+                                style={{ fontWeight: 500 }}
+                              >
+                                Remove
+                              </button>
+                            )}
                           </div>
-                        )}
+                        </motion.div>
+                      ))}
+                    </div>
 
-                        {/* Actions */}
+                    {/* Active filter chips */}
+                    {(docClass || filters.some(f => f.value)) && (
+                      <div className="flex flex-wrap gap-1.5 pt-1">
+                        {docClass && (
+                          <span className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-indigo-50 dark:bg-indigo-900/20 text-indigo-700 dark:text-indigo-300 text-xs border border-indigo-100 dark:border-indigo-800/50" style={{ fontWeight: 500 }}>
+                            Class: {docClass}
+                            <button onClick={() => setDocClass('')} className="hover:text-indigo-900 dark:hover:text-indigo-100 transition-colors">
+                              <X className="w-3 h-3" />
+                            </button>
+                          </span>
+                        )}
+                        {filters.filter(f => f.value).map(f => (
+                          <span key={f.id} className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs border border-slate-200 dark:border-slate-600" style={{ fontWeight: 500 }}>
+                            {f.field} {f.operator.toLowerCase()} "{f.value}"
+                            <button onClick={() => updateFilter(f.id, 'value', '')} className="hover:text-slate-900 dark:hover:text-slate-100 transition-colors">
+                              <X className="w-3 h-3" />
+                            </button>
+                          </span>
+                        ))}
+                      </div>
+                    )}
+
+                    {/* Search button */}
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2 border-t border-slate-100 dark:border-slate-700">
+                      <div className="flex items-center gap-2">
+                        <button className="flex items-center gap-1.5 h-9 px-3 rounded-lg border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-300 text-sm hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors" style={{ fontWeight: 500 }}>
+                          <Save className="w-3.5 h-3.5" />
+                          Save Filter
+                        </button>
                         <button
-                          onClick={addFilter}
-                          className="shrink-0 h-9 px-3 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-sm flex items-center gap-1 transition-colors shadow-sm"
+                          onClick={() => { setDocClass(''); setFilters([{ id: '1', field: 'Search Text', operator: 'Is', value: '', conjunction: 'AND' }]); setHasSearched(false); }}
+                          className="h-9 px-3 rounded-lg text-slate-400 dark:text-slate-500 text-sm hover:text-slate-600 dark:hover:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors"
                           style={{ fontWeight: 500 }}
                         >
-                          <Plus className="w-3 h-3" />
-                          Add
+                          Reset
                         </button>
-                        {filters.length > 1 && (
-                          <button
-                            onClick={() => removeFilter(filter.id)}
-                            className="shrink-0 h-9 px-3 rounded-lg border border-slate-200 dark:border-slate-600 text-slate-500 dark:text-slate-400 text-sm hover:bg-red-50 dark:hover:bg-red-900/10 hover:text-red-500 hover:border-red-200 dark:hover:border-red-800 transition-colors"
-                            style={{ fontWeight: 500 }}
-                          >
-                            Remove
-                          </button>
-                        )}
-                      </motion.div>
-                    ))}
-                  </div>
-
-                  {/* Active filter chips */}
-                  {(docClass || filters.some(f => f.value)) && (
-                    <div className="flex flex-wrap gap-1.5 pt-1">
-                      {docClass && (
-                        <span className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-indigo-50 dark:bg-indigo-900/20 text-indigo-700 dark:text-indigo-300 text-xs border border-indigo-100 dark:border-indigo-800/50" style={{ fontWeight: 500 }}>
-                          Class: {docClass}
-                          <button onClick={() => setDocClass('')} className="hover:text-indigo-900 dark:hover:text-indigo-100 transition-colors">
-                            <X className="w-3 h-3" />
-                          </button>
-                        </span>
-                      )}
-                      {filters.filter(f => f.value).map(f => (
-                        <span key={f.id} className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs border border-slate-200 dark:border-slate-600" style={{ fontWeight: 500 }}>
-                          {f.field} {f.operator.toLowerCase()} "{f.value}"
-                          <button onClick={() => updateFilter(f.id, 'value', '')} className="hover:text-slate-900 dark:hover:text-slate-100 transition-colors">
-                            <X className="w-3 h-3" />
-                          </button>
-                        </span>
-                      ))}
-                    </div>
-                  )}
-
-                  {/* Search button */}
-                  <div className="flex items-center justify-between pt-2 border-t border-slate-100 dark:border-slate-700">
-                    <div className="flex items-center gap-2">
-                      <button className="flex items-center gap-1.5 h-9 px-3 rounded-lg border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-300 text-sm hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors" style={{ fontWeight: 500 }}>
-                        <Save className="w-3.5 h-3.5" />
-                        Save Filter
-                      </button>
+                      </div>
                       <button
-                        onClick={() => { setDocClass(''); setFilters([{ id: '1', field: 'Search Text', operator: 'Is', value: '', conjunction: 'AND' }]); setHasSearched(false); }}
-                        className="h-9 px-3 rounded-lg text-slate-400 dark:text-slate-500 text-sm hover:text-slate-600 dark:hover:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors"
-                        style={{ fontWeight: 500 }}
+                        onClick={handleSearch}
+                        disabled={isSearching}
+                        className="flex items-center justify-center gap-2 h-9 px-5 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-sm transition-colors shadow-sm disabled:opacity-60"
+                        style={{ fontWeight: 600 }}
                       >
-                        Reset
+                        {isSearching ? (
+                          <>
+                            <div className="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                            Searching...
+                          </>
+                        ) : (
+                          <>
+                            <Search className="w-3.5 h-3.5" />
+                            Search
+                          </>
+                        )}
                       </button>
                     </div>
-                    <button
-                      onClick={handleSearch}
-                      disabled={isSearching}
-                      className="flex items-center gap-2 h-9 px-5 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-sm transition-colors shadow-sm disabled:opacity-60"
-                      style={{ fontWeight: 600 }}
-                    >
-                      {isSearching ? (
-                        <>
-                          <div className="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                          Searching...
-                        </>
-                      ) : (
-                        <>
-                          <Search className="w-3.5 h-3.5" />
-                          Search
-                        </>
-                      )}
-                    </button>
                   </div>
                 </div>
-              </div>
 
-              {/* Results */}
-              <AnimatePresence>
-                {hasSearched && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 12 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="mt-5 space-y-4"
-                  >
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <h3 className="text-slate-800 dark:text-slate-200" style={{ fontWeight: 600, fontSize: '14px' }}>Search Results</h3>
-                        <p className="text-xs text-slate-400 dark:text-slate-500 mt-0.5">379,297 documents found</p>
+                {/* Results */}
+                <div className="min-w-0">
+                  <AnimatePresence>
+                    {hasSearched && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 12 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="space-y-4"
+                    >
+                      <div className="flex items-center justify-between gap-3">
+                        <div>
+                          <h3 className="text-slate-800 dark:text-slate-200" style={{ fontWeight: 600, fontSize: '14px' }}>Search Results</h3>
+                          <p className="text-xs text-slate-400 dark:text-slate-500 mt-0.5">379,297 documents found</p>
+                        </div>
+                        <div className="flex items-center gap-2 shrink-0">
+                          <span className="text-xs text-slate-500 dark:text-slate-400">Items per page:</span>
+                          <select className="h-7 px-2 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs outline-none">
+                            <option>12</option>
+                            <option>24</option>
+                            <option>50</option>
+                          </select>
+                        </div>
                       </div>
-                      <div className="flex items-center gap-2">
-                        <span className="text-xs text-slate-500 dark:text-slate-400">Items per page:</span>
-                        <select className="h-7 px-2 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs outline-none">
-                          <option>12</option>
-                          <option>24</option>
-                          <option>50</option>
-                        </select>
-                      </div>
-                    </div>
-                    {mockResults.map((result, i) => (
-                      <SearchResultCard key={i} result={result} />
-                    ))}
-
-                    {/* Pagination */}
-                    <div className="flex items-center justify-center gap-1 pt-2">
-                      {[1, 2, 3, 4, 5].map(p => (
-                        <button
-                          key={p}
-                          className={`w-8 h-8 rounded-lg text-sm transition-colors ${
-                            p === 1
-                              ? 'bg-indigo-600 text-white shadow-sm'
-                              : 'text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
-                          }`}
-                          style={{ fontWeight: p === 1 ? 600 : 400 }}
-                        >
-                          {p}
-                        </button>
+                      {mockResults.map((result, i) => (
+                        <SearchResultCard key={i} result={result} />
                       ))}
-                      <span className="px-2 text-slate-400">...</span>
-                      <button className="h-8 px-3 rounded-lg text-sm text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
-                        Next
-                      </button>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+
+                      {/* Pagination */}
+                      <div className="flex items-center justify-center gap-1 pt-2">
+                        {[1, 2, 3, 4, 5].map(p => (
+                          <button
+                            key={p}
+                            className={`w-8 h-8 rounded-lg text-sm transition-colors ${
+                              p === 1
+                                ? 'bg-indigo-600 text-white shadow-sm'
+                                : 'text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
+                            }`}
+                            style={{ fontWeight: p === 1 ? 600 : 400 }}
+                          >
+                            {p}
+                          </button>
+                        ))}
+                        <span className="px-2 text-slate-400">...</span>
+                        <button className="h-8 px-3 rounded-lg text-sm text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+                          Next
+                        </button>
+                      </div>
+                    </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              </div>
             </motion.div>
           ) : (
             <motion.div
